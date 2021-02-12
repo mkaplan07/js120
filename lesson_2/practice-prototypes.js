@@ -31,6 +31,8 @@ function reassignPropRecursive(obj, k, v) {
     return;
   } else if (Object.getPrototypeOf(obj)) {
     obj = Object.getPrototypeOf(obj);
+  } else {
+    return; // if prop doesn't exist
   }
 
   reassignPropRecursive(obj, k, v);
@@ -46,3 +48,6 @@ console.log(fezA, fezB.fez, fezC.fez);
 fezB.bar = 33;
 reassignPropRecursive(fezC, 'bar', 'larry');
 console.log(fezA.bar, fezB, fezC.bar);
+
+reassignPropRecursive(fezC, 'baz', 11); // prop doesn't exist
+console.log(fezA, fezB, fezC);
